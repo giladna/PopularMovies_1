@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
 
     private void loadMoviesData() {
         showWMoviesDataView();
-        String sortByCondition = "popularity"; //"vote_average"// //SunshinePreferences.getPreferredWeatherLocation(this);
-        new FetchMoviesTask().execute(sortByCondition);
+        //String sortByCondition = "popularity"; //"vote_average"// //SunshinePreferences.getPreferredWeatherLocation(this);
+        new FetchMoviesTask().execute(NetworkUtils.POPULARITY);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
             }
 
             String sortByCondition = params[0];
-            URL moviesRequestUrl = NetworkUtils.buildUrl(sortByCondition);
+            URL moviesRequestUrl = NetworkUtils.buildUrl(sortByCondition, 1);
 
             try {
                 String jsonMoviesResponse = NetworkUtils.getResponseFromHttpUrl(moviesRequestUrl);
