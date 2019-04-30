@@ -7,99 +7,86 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.udacity.popularmovies.model.MovieMetadata;
 
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String MOVIE_DETAILS = "movie_details";
 
-//    public static final String EXTRA_POSITION = "extra_position";
-//    private static final int DEFAULT_POSITION = -1;
-//
-//    ImageView ingredientsIv;
-//    TextView origin_tv;
-//    TextView also_known_tv;
-//    TextView ingredients_tv;
-//    TextView description_tv;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_detail);
-//
-//        ingredientsIv = findViewById(R.id.image_iv);
-//        origin_tv = findViewById(R.id.origin_tv);
-//        also_known_tv = findViewById(R.id.also_known_tv);
-//        ingredients_tv = findViewById(R.id.ingredients_tv);
-//        description_tv = findViewById(R.id.description_tv);
-//
-//        Intent intent = getIntent();
-//        if (intent == null) {
-//            closeOnError();
-//            return;
-//        }
-//
-//        int position = intent.getIntExtra(EXTRA_POSITION, DEFAULT_POSITION);
-//        if (position == DEFAULT_POSITION) {
-//            // EXTRA_POSITION not found in intent
-//            closeOnError();
-//            return;
-//        }
-//
-//        String[] sandwiches = getResources().getStringArray(R.array.sandwich_details);
-//        ArrayList<Sandwich> sandwichArrayList = new ArrayList<>();
-//        for (String sandwichJson : sandwiches) {
-//            sandwichArrayList.add(JsonUtils.parseSandwichJson(sandwichJson));
-//        }
-//        Collections.sort(sandwichArrayList);
-//        Sandwich sandwich = sandwichArrayList.get(position);
-//        if (sandwich == null) {
-//            // Sandwich data unavailable
-//            closeOnError();
-//            return;
-//        }
-//
-//        populateUI(sandwich);
-//        Picasso.with(this)
-//                .load(sandwich.getImage())
-//                .placeholder(R.drawable.placeholder)
-//                .error(R.drawable.error)
-//                .into(ingredientsIv);
-//
-//        setTitle(sandwich.getName().getMainName());
-//    }
-//
-//    private void closeOnError() {
-//        finish();
-//        Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
-//    }
-//
-//    private void populateUI(Sandwich sandwich) {
-//        if (sandwich.getPlaceOfOrigin() != null) {
-//            origin_tv.setText(sandwich.getPlaceOfOrigin());
-//        }
-//
-//        if (sandwich.getName().getAlsoKnownAs() != null && !sandwich.getName().getAlsoKnownAs().isEmpty()) {
-//            StringBuilder sb = new StringBuilder();
-//            for (String val : sandwich.getName().getAlsoKnownAs()) {
-//                sb.append(val).append("\n");
-//            }
-//            also_known_tv.setText(sb.toString());
-//        }
-//
-//        if (sandwich.getIngredients() != null && !sandwich.getIngredients().isEmpty()) {
-//            StringBuilder sb = new StringBuilder();
-//            for (String val : sandwich.getIngredients()) {
-//                sb.append("- ").append(val).append("\n");
-//            }
-//            ingredients_tv.setText(sb.toString());
-//        }
-//
-//        if (sandwich.getDescription() != null) {
-//            description_tv.setText(sandwich.getDescription());
-//        }
-//    }
+    ImageView poster_iv;
+    TextView title_tv;
+    TextView overview_tv;
+    TextView release_date_tv;
+    TextView rating_tv;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_detail);
+
+        poster_iv = null;//findViewById(R.id.poster_iv);
+        title_tv =  null;//findViewById(R.id.title_tv);
+        overview_tv =  null;//findViewById(R.id.overview_tv);
+        release_date_tv =  null;//findViewById(R.id.release_date_tv);
+        rating_tv =  null;//findViewById(R.id.rating_tv);
+
+        Intent intent = getIntent();
+        if (intent == null) {
+            closeOnError();
+            return;
+        }
+        MovieMetadata movieMetadata = (MovieMetadata) intent.getParcelableExtra(MOVIE_DETAILS);
+        if (movieMetadata == null) {
+            closeOnError();
+            return;
+        }
+        populateUI(movieMetadata);
+        Picasso.with(this)
+                .load(movieMetadata.getPosterFullPath())
+                .placeholder(R.drawable.placeholder)
+                .error(R.drawable.error)
+                .into(poster_iv, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        // remove spinner
+                    }
+
+                    @Override
+                    public void onError() {
+                        // remove spinner
+                    }
+                });
+    }
+
+    private void closeOnError() {
+        finish();
+        Toast.makeText(this, R.string.error_message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void populateUI(MovieMetadata movieMetadata) {
+        String originalTitle = movieMetadata.getOriginalTitle();
+        String posterImageThumbnail = movieMetadata.getPosterFullPath();
+        String plotSynopsis = movieMetadata.getOverview();
+        Double userRating = movieMetadata.getVoteAverage();
+        String releaseDate = movieMetadata.getReleaseDate();
+
+
+        if (originalTitle != null) {
+            title_tv.setText(originalTitle);
+        }
+
+        if (plotSynopsis != null) {
+            overview_tv.setText(plotSynopsis);
+        }
+
+        if (userRating != null) {
+            rating_tv.setText(String.valueOf(userRating));
+        }
+
+        if (releaseDate != null) {
+            release_date_tv.setText(releaseDate);
+        }
+    }
 }

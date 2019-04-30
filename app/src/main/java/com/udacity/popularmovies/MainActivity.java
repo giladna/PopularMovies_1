@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
         mMovieImageGridAdapter = new MovieImageGridAdapter(this, this);
         mRecyclerView.setAdapter(mMovieImageGridAdapter);
 
-        loadMoviesData();
+        loadMoviesData(NetworkUtils.POPULARITY);
 
         //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
         //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
@@ -64,10 +66,10 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
 
     }
 
-    private void loadMoviesData() {
+    private void loadMoviesData(String filterType) {
         showWMoviesDataView();
         //String sortByCondition = "popularity"; //"vote_average"// //SunshinePreferences.getPreferredWeatherLocation(this);
-        new FetchMoviesTask().execute(NetworkUtils.POPULARITY);
+        new FetchMoviesTask().execute(filterType);
     }
 
     @Override
@@ -97,6 +99,42 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
         intent.putExtra(DetailActivity.MOVIE_DETAILS, movieMetadata);
         context.startActivity(intent);
     }
+
+    // This method creates the menu on the app
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    // Called when a options menu item is selected
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        // We check what menu item was clicked and show a Toast
+        if (id == R.id.most_popular) {
+            item.setChecked(true);
+            loadMoviesData(NetworkUtils.POPULARITY);
+            return true;
+
+            // If exit was clicked close the app
+        } else if (id == R.id.top_rated) {
+            item.setChecked(true);
+            loadMoviesData(NetworkUtils.VOTE_AVARAGE);
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
     private class FetchMoviesTask extends AsyncTask<String, Void, List<MovieMetadata>> {
 

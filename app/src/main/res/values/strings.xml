@@ -4,4 +4,7 @@
         An error has occurred. Please try again by clicking REFRESH
     </string>
     <string name="movie_detail">MovieDetail</string>
+    <string name="action_most_popular">Most Popular</string>
+    <string name="action_top_rated">Top Rated</string>
+    <string name="filter">Filter</string>
 </resources>
