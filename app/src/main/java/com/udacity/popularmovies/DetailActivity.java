@@ -26,11 +26,11 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        poster_iv = null;//findViewById(R.id.poster_iv);
+        poster_iv = findViewById(R.id.poster_iv);
         title_tv = findViewById(R.id.title_tv);
-        overview_tv =  null;//findViewById(R.id.overview_tv);
-        release_date_tv =  null;//findViewById(R.id.release_date_tv);
-        rating_tv =  null;//findViewById(R.id.rating_tv);
+        overview_tv = findViewById(R.id.overview_tv);
+        release_date_tv = findViewById(R.id.release_date_tv);
+        rating_tv = findViewById(R.id.rating_tv);
 
         Intent intent = getIntent();
         if (intent == null) {
@@ -43,7 +43,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
         populateUI(movieMetadata);
-        //loadPoster(movieMetadata);
+        loadPoster(movieMetadata);
     }
 
     private void loadPoster(MovieMetadata movieMetadata) {
@@ -71,7 +71,6 @@ public class DetailActivity extends AppCompatActivity {
 
     private void populateUI(MovieMetadata movieMetadata) {
         String originalTitle = movieMetadata.getOriginalTitle();
-        String posterImageThumbnail = movieMetadata.getPosterFullPath();
         String plotSynopsis = movieMetadata.getOverview();
         Double userRating = movieMetadata.getVoteAverage();
         String releaseDate = movieMetadata.getReleaseDate();
@@ -81,16 +80,16 @@ public class DetailActivity extends AppCompatActivity {
             title_tv.setText(originalTitle);
         }
 
-//        if (plotSynopsis != null) {
-//            overview_tv.setText(plotSynopsis);
-//        }
-//
-//        if (userRating != null) {
-//            rating_tv.setText(String.valueOf(userRating));
-//        }
-//
-//        if (releaseDate != null) {
-//            release_date_tv.setText(releaseDate);
-//        }
+        if (plotSynopsis != null) {
+            overview_tv.setText(plotSynopsis);
+        }
+
+        if (userRating != null) {
+            rating_tv.setText(String.valueOf(userRating) + "/10");
+        }
+
+        if (releaseDate != null) {
+            release_date_tv.setText(releaseDate);
+        }
     }
 }
