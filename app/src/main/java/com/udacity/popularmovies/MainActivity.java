@@ -1,5 +1,7 @@
 package com.udacity.popularmovies;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
     public void onClick(MovieMetadata movieMetadata) {
         long id = movieMetadata.getId();
         Toast.makeText(MainActivity.this, "ID = " + id , Toast.LENGTH_SHORT).show();
+        launchDetailActivity(movieMetadata);
     }
 
     private void showWMoviesDataView() {
@@ -86,6 +89,13 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
         mRecyclerView.setVisibility(View.INVISIBLE);
         /* Then, show the error */
         mErrorMessageDisplay.setVisibility(View.VISIBLE);
+    }
+
+    private void launchDetailActivity(MovieMetadata movieMetadata) {
+        Context context = MainActivity.this;
+        Intent intent = new Intent(context, DetailActivity.class);
+        intent.putExtra(DetailActivity.MOVIE_DETAILS, movieMetadata);
+        context.startActivity(intent);
     }
 
     private class FetchMoviesTask extends AsyncTask<String, Void, List<MovieMetadata>> {
