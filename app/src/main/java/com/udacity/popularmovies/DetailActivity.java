@@ -27,7 +27,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         poster_iv = null;//findViewById(R.id.poster_iv);
-        title_tv =  null;//findViewById(R.id.title_tv);
+        title_tv = findViewById(R.id.title_tv);
         overview_tv =  null;//findViewById(R.id.overview_tv);
         release_date_tv =  null;//findViewById(R.id.release_date_tv);
         rating_tv =  null;//findViewById(R.id.rating_tv);
@@ -43,6 +43,10 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
         populateUI(movieMetadata);
+        //loadPoster(movieMetadata);
+    }
+
+    private void loadPoster(MovieMetadata movieMetadata) {
         Picasso.with(this)
                 .load(movieMetadata.getPosterFullPath())
                 .placeholder(R.drawable.placeholder)
@@ -77,16 +81,16 @@ public class DetailActivity extends AppCompatActivity {
             title_tv.setText(originalTitle);
         }
 
-        if (plotSynopsis != null) {
-            overview_tv.setText(plotSynopsis);
-        }
-
-        if (userRating != null) {
-            rating_tv.setText(String.valueOf(userRating));
-        }
-
-        if (releaseDate != null) {
-            release_date_tv.setText(releaseDate);
-        }
+//        if (plotSynopsis != null) {
+//            overview_tv.setText(plotSynopsis);
+//        }
+//
+//        if (userRating != null) {
+//            rating_tv.setText(String.valueOf(userRating));
+//        }
+//
+//        if (releaseDate != null) {
+//            release_date_tv.setText(releaseDate);
+//        }
     }
 }

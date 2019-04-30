@@ -8,9 +8,22 @@
     <LinearLayout
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:paddingTop="35dp"
+            android:paddingLeft="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:fontFamily="sans-serif"
+            android:textSize="30sp"
+            android:textColor="@color/cardview_light_background"
+            android:background="@color/titleBackground"/>
 
         <!--<ImageView-->
         <!--android:id="@+id/image_iv"-->
