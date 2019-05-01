@@ -14,14 +14,14 @@
 
         <TextView
             android:id="@+id/title_tv"
-            android:paddingTop="35dp"
-            android:paddingLeft="32dp"
+            android:paddingTop="@dimen/padding_generic_x_2"
+            android:paddingLeft="@dimen/padding_generic"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="130dp"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:fontFamily="sans-serif"
-            android:textSize="30sp"
+            android:textSize="28sp"
             android:textColor="@color/cardview_light_background"
             android:background="@color/titleBackground"/>
 
@@ -32,11 +32,11 @@
 
             <ImageView
                 android:id="@+id/poster_iv"
-                android:layout_width="150dp"
+                android:layout_width="100dp"
                 android:layout_height="150dp"
                 android:scaleType="fitXY"
-                android:paddingTop="16dp"
-                android:paddingLeft="16dp"/>
+                android:paddingTop="@dimen/padding_generic"
+                android:paddingLeft="@dimen/padding_generic"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,9 +51,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="16dp"
-                        android:paddingLeft="32dp"
-                        android:textSize="16sp"
+                        android:paddingTop="@dimen/padding_generic"
+                        android:paddingLeft="@dimen/padding_generic_x_2"
+                        android:textSize="@dimen/textsize_generic"
                         android:text="@string/rating_label"
                         android:textStyle="bold" />
 
@@ -61,10 +61,10 @@
                         android:id="@+id/rating_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="16dp"
-                        android:paddingLeft="8dp"
-                        android:paddingRight="8dp"
-                        android:textSize="16sp"
+                        android:paddingTop="@dimen/padding_generic"
+                        android:paddingLeft="@dimen/padding_half_generic"
+                        android:paddingRight="@dimen/padding_half_generic"
+                        android:textSize="@dimen/textsize_generic"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -75,27 +75,23 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingTop="16dp"
-                        android:paddingLeft="32dp"
-                        android:textSize="16sp"
+                        android:paddingTop="@dimen/padding_generic"
+                        android:paddingLeft="@dimen/padding_generic_x_2"
+                        android:textSize="@dimen/textsize_generic"
                         android:text="@string/date_label"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/release_date_tv"
-                        android:paddingTop="16dp"
+                        android:paddingTop="@dimen/padding_generic"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="8dp"
-                        android:paddingLeft="8dp"
-                        android:textSize="16sp"
+                        android:paddingRight="@dimen/padding_half_generic"
+                        android:paddingLeft="@dimen/padding_half_generic"
+                        android:textSize="@dimen/textsize_generic"
                         android:textStyle="bold" />
                 </LinearLayout>
-
-
             </LinearLayout>
-
-
         </LinearLayout>
 
 
@@ -103,109 +99,20 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#dadada"
-            android:layout_margin="16dp" />
+            android:layout_margin="@dimen/padding_generic" />
 
         <TextView
             android:id="@+id/overview_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp" />
+            android:textSize="@dimen/textsize_generic"
+            android:paddingLeft="@dimen/padding_generic"
+            android:paddingRight="@dimen/padding_generic" />
 
-
-        <!--<ImageView-->
-        <!--android:id="@+id/image_iv"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:background="@drawable/border"-->
-        <!--android:contentDescription="@string/sandwich_picture_content_description"-->
-        <!--android:scaleType="centerCrop" />-->
-
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/listView_top_margin"-->
-        <!--android:paddingLeft="@dimen/listView_horizontal_margin"-->
-        <!--android:text="@string/detail_place_of_origin_label"-->
-        <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/origin_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="@dimen/listView_top_margin"-->
-        <!--android:paddingBottom="@dimen/listView_vertical_margin"-->
-        <!--android:paddingLeft="@dimen/listView_middle_horizontal_margin"-->
-        <!--android:paddingRight="@dimen/listView_middle_horizontal_margin"/>-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingLeft="@dimen/listView_horizontal_margin"-->
-        <!--android:text="@string/detail_also_known_as_label"-->
-        <!--android:paddingBottom="@dimen/listView_vertical_margin"-->
-        <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/also_known_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingLeft="@dimen/listView_middle_horizontal_margin"-->
-        <!--android:paddingRight="@dimen/listView_middle_horizontal_margin" />-->
-        <!--</LinearLayout>-->
-
-        <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal">-->
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/detail_ingredients_label"-->
-        <!--android:paddingLeft="@dimen/listView_horizontal_margin"-->
-        <!--android:paddingBottom="@dimen/listView_vertical_margin"-->
-        <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/ingredients_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingLeft="@dimen/listView_middle_horizontal_margin"-->
-        <!--android:paddingRight="@dimen/listView_middle_horizontal_margin" />-->
-        <!--</LinearLayout>-->
-
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/detail_description_label"-->
-        <!--android:paddingBottom="@dimen/listView_vertical_margin"-->
-        <!--android:paddingLeft="@dimen/listView_horizontal_margin"-->
-        <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/description_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:paddingBottom="@dimen/listView_vertical_margin"-->
-        <!--android:paddingLeft="@dimen/listView_horizontal_margin"-->
-        <!--android:paddingRight="@dimen/listView_middle_horizontal_margin"/>-->
-        <!--</LinearLayout>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dadada"
+            android:layout_margin="@dimen/padding_generic" />
     </LinearLayout>
 </ScrollView>

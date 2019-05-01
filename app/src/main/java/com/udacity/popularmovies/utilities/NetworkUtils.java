@@ -30,28 +30,25 @@ import java.util.Scanner;
  * These utilities will be used to communicate with the network.
  */
 public class NetworkUtils {
-    //http://api.themoviedb.org/4/discover/movie?sort_by=popularity.desc&api_key=8778f67f11a5a1dcb6ee731a56892416
-//http://api.themoviedb.org/4/discover/movie?sort_by=vote_average.desc&api_key=8778f67f11a5a1dcb6ee731a56892416
-
 
     //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
     //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
+    //https://image.tmdb.org/t/p/w185/nUXCJMnAiwCpNPZuJH2n6h5hGtF.jpg
+
+    
     public static String POPULARITY = "popularity";
     public static String VOTE_AVARAGE = "vote_average";
 
     final static String POPULAR_MOVIES_DB_BASE_URL =
-            "http://api.themoviedb.org/3/movie/popular";
+            "https://api.themoviedb.org/3/movie/popular";
 
     final static String TOP_RATED_MOVIES_DB_BASE_URL =
-            "http://api.themoviedb.org/3/movie/top_rated";
+            "https://api.themoviedb.org/3/movie/top_rated";
 
-    final static String DISCOVER_MOVIES_DB_BASE_URL =
-            "http://api.themoviedb.org/4/discover/movie";
 
     final static String API_KEY = "api_key";
     final static String PARAM_LANG ="language";
     final static String PARAM_PAGE ="page";
-    final static String PARAM_SORT = "sort_by";
     final static String sortByPopularity = "popularity.desc";
     final static String sortByRating = "vote_average.desc";
 
@@ -70,23 +67,6 @@ public class NetworkUtils {
                     .appendQueryParameter(PARAM_PAGE, String.valueOf(page))
                     .build();
         }
-
-        URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        return url;
-    }
-
-
-    public static URL builDiscoveldUrl(String moviesSortQuery) {
-        Uri builtUri = Uri.parse(DISCOVER_MOVIES_DB_BASE_URL).buildUpon()
-                .appendQueryParameter(API_KEY, BuildConfig.MOVIE_DB_API_KEY)
-                .appendQueryParameter(PARAM_SORT, moviesSortQuery)
-                .build();
 
         URL url = null;
         try {

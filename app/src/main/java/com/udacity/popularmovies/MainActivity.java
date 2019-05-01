@@ -56,26 +56,17 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
         mRecyclerView.setAdapter(mMovieImageGridAdapter);
 
         loadMoviesData(NetworkUtils.POPULARITY);
-
-        //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
-        //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
-
-
-        //https://image.tmdb.org/t/p/w185/nUXCJMnAiwCpNPZuJH2n6h5hGtF.jpg
-
-
     }
 
     private void loadMoviesData(String filterType) {
         showWMoviesDataView();
-        //String sortByCondition = "popularity"; //"vote_average"// //SunshinePreferences.getPreferredWeatherLocation(this);
         new FetchMoviesTask().execute(filterType);
     }
 
     @Override
     public void onClick(MovieMetadata movieMetadata) {
         long id = movieMetadata.getId();
-        Toast.makeText(MainActivity.this, "ID = " + id , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "ID = " + id , Toast.LENGTH_SHORT).show();
         launchDetailActivity(movieMetadata);
     }
 
