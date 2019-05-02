@@ -32,18 +32,23 @@ import java.util.Scanner;
 public class NetworkUtils {
 
     //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
-    //http://api.themoviedb.org/3/movie/popular?language=en-US&api_key=8778f67f11a5a1dcb6ee731a56892416
     //https://image.tmdb.org/t/p/w185/nUXCJMnAiwCpNPZuJH2n6h5hGtF.jpg
 
-    
-    public static String POPULARITY = "popularity";
-    public static String VOTE_AVARAGE = "vote_average";
+    public static final String NOW_PLAYING = "now_playingw";
+    public static final String POPULARITY = "popularity";
+    public static final String VOTE_AVARAGE = "vote_average";
+
+    final static String MOVIES_DB_BASE_URL =
+            "https://api.themoviedb.org/3/";
 
     final static String POPULAR_MOVIES_DB_BASE_URL =
-            "https://api.themoviedb.org/3/movie/popular";
+            MOVIES_DB_BASE_URL + "movie/popular";
 
     final static String TOP_RATED_MOVIES_DB_BASE_URL =
-            "https://api.themoviedb.org/3/movie/top_rated";
+            MOVIES_DB_BASE_URL + "movie/top_rated";
+
+    final static String NOW_PLAYING_MOVIES_DB_BASE_URL =
+            MOVIES_DB_BASE_URL + "movie/now_playing";
 
 
     final static String API_KEY = "api_key";

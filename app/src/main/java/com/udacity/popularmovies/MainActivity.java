@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,10 +20,21 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.udacity.popularmovies.model.DiscoverMoviesResponse;
 import com.udacity.popularmovies.model.MovieMetadata;
+import com.udacity.popularmovies.utilities.MovieAPI;
+import com.udacity.popularmovies.utilities.NetworkClient;
 import com.udacity.popularmovies.utilities.NetworkUtils;
 
 import java.net.URL;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+import static com.udacity.popularmovies.utilities.NetworkUtils.NOW_PLAYING;
+import static com.udacity.popularmovies.utilities.NetworkUtils.POPULARITY;
+import static com.udacity.popularmovies.utilities.NetworkUtils.VOTE_AVARAGE;
 
 public class MainActivity extends AppCompatActivity implements MovieImageGridAdapter.MovieImageGridOnClickHandler {
 
@@ -55,12 +67,16 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
         mMovieImageGridAdapter = new MovieImageGridAdapter(this, this);
         mRecyclerView.setAdapter(mMovieImageGridAdapter);
 
-        loadMoviesData(NetworkUtils.POPULARITY);
+        loadMoviesData(POPULARITY);
     }
 
     private void loadMoviesData(String filterType) {
         showWMoviesDataView();
-        new FetchMoviesTask().execute(filterType);
+        //Using Async
+        //new FetchMoviesTask().execute(filterType);
+
+        //Using Retrofit
+        fetchMovies(filterType);
     }
 
     @Override
@@ -111,21 +127,79 @@ public class MainActivity extends AppCompatActivity implements MovieImageGridAda
         // We check what menu item was clicked and show a Toast
         if (id == R.id.most_popular) {
             item.setChecked(true);
-            loadMoviesData(NetworkUtils.POPULARITY);
+            //Async
+            //loadMoviesData(POPULARITY);
+
+            //Retrofit
+            fetchMovies(POPULARITY);
             return true;
 
             // If exit was clicked close the app
         } else if (id == R.id.top_rated) {
             item.setChecked(true);
-            loadMoviesData(NetworkUtils.VOTE_AVARAGE);
+            //Async
+            //loadMoviesData(VOTE_AVARAGE);
 
+            //Retrofit
+            fetchMovies(VOTE_AVARAGE);
             return true;
+        } else if (id == R.id.now_playing) {
+            item.setChecked(true);
+
+            //Async
+            //loadMoviesData(NOW_PLAYING);
+
+            //Retrofit
+            fetchMovies(NOW_PLAYING);
         }
         return super.onOptionsItemSelected(item);
     }
 
+    //Retrofit
+    private void fetchMovies(String filterType) {
+        Retrofit retrofit = NetworkClient.getRetrofitClient();
 
+        MovieAPI movieAPI = retrofit.create(MovieAPI.class);
+        Call<DiscoverMoviesResponse> call = null;
 
+        switch (filterType) {
+            case NOW_PLAYING:
+                call = movieAPI.getNowPlayingMovies(BuildConfig.MOVIE_DB_API_KEY, 1);
+                break;
+            case VOTE_AVARAGE:
+                call = movieAPI.getTopRatedMovies(BuildConfig.MOVIE_DB_API_KEY, 1);
+                break;
+            case POPULARITY:
+            default:
+                call = movieAPI.getPopularMovies(BuildConfig.MOVIE_DB_API_KEY, 1);
+        }
+        if (call == null) {
+            return;
+        }
+
+        mLoadingIndicator.setVisibility(View.VISIBLE);
+        call.enqueue(new Callback<DiscoverMoviesResponse>() {
+            @Override
+            public void onResponse(Call call, Response response) {
+
+                if (response.body() != null) {
+                    DiscoverMoviesResponse discoverMoviesResponse = (DiscoverMoviesResponse) response.body();
+                    mLoadingIndicator.setVisibility(View.INVISIBLE);
+                    if (discoverMoviesResponse.getResults() != null) {
+                        showWMoviesDataView();
+                        mMovieImageGridAdapter.setMoviesData(discoverMoviesResponse.getResults());
+                    } else {
+                        showErrorMessage();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, Throwable exception) {
+                showErrorMessage();
+            }
+        });
+    }
 
     private class FetchMoviesTask extends AsyncTask<String, Void, List<MovieMetadata>> {
 
